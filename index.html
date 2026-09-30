@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글자 수 세기</title>
+  <style>
+    body {
+      font-family: -apple-system, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      background: #f5f6f8;
+      color: #222;
+      margin: 0;
+      padding: 32px 16px;
+    }
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    h1 {
+      font-size: 22px;
+      margin: 0 0 16px;
+    }
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 180px;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      resize: vertical;
+    }
+    button {
+      margin-top: 12px;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background: #2f6fed;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1f5bd0;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>글자 수 세기</h1>
+    <textarea id="text" placeholder="여기에 글을 입력하세요."></textarea>
+    <button id="countBtn" type="button">글자 수 세기</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById("countBtn").addEventListener("click", function () {
+      var text = document.getElementById("text").value;
+
+      // Array.from으로 나눠야 이모지 같은 문자도 1자로 셉니다.
+      var total = Array.from(text).length;
+      var noSpaces = Array.from(text.replace(/\s/g, "")).length;
+
+      document.getElementById("result").innerHTML =
+        "공백 포함: <strong>" + total + "</strong>자<br>" +
+        "공백 제외: <strong>" + noSpaces + "</strong>자";
+    });
+  </script>
+</body>
+</html>
