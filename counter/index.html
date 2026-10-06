@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글자 수 세기</title>
+  <style>
+    body {
+      font-family: system-ui, "Malgun Gothic", sans-serif;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 100px 16px 40px;
+      background: #e4f5c8;
+      color: #222;
+    }
+    h1 {
+      margin: 0 0 28px;
+      text-align: center;
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: #03c75a;
+    }
+    /* 초록 테두리의 둥근 입력 상자 */
+    .search-box {
+      border: 2px solid #03c75a;
+      border-radius: 28px;
+      padding: 14px 14px 14px 26px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+    .search-box:focus-within { box-shadow: 0 4px 16px rgba(3, 199, 90, 0.25); }
+    textarea {
+      display: block;
+      width: 100%;
+      height: 140px;
+      padding: 6px 0;
+      font-size: 1.15rem;
+      font-family: inherit;
+      border: none;
+      outline: none;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    button {
+      padding: 10px 22px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 22px;
+      background: #03c75a;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover { background: #02b350; }
+    #clearBtn { background: #f1f3f5; color: #555; }
+    #clearBtn:hover { background: #e3e6e9; }
+    #result {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #444;
+    }
+    #result strong { color: #03c75a; }
+  </style>
+</head>
+<body>
+  <h1>글자 수 세기</h1>
+
+  <div class="search-box">
+    <textarea id="input" placeholder="여기에 글을 입력하세요"></textarea>
+    <div class="actions">
+      <button id="clearBtn">전체 지우기</button>
+      <button id="countBtn">글자 수 세기</button>
+    </div>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    const input = document.getElementById("input");
+    const button = document.getElementById("countBtn");
+    const result = document.getElementById("result");
+
+    function updateCount() {
+      const text = input.value;
+
+      // Array.from으로 이모지 등도 한 글자로 셉니다
+      const withSpaces = Array.from(text).length;
+      const withoutSpaces = Array.from(text.replace(/\s/g, "")).length;
+
+      result.innerHTML =
+        "공백 포함: <strong>" + withSpaces + "</strong>자<br>" +
+        "공백 제외: <strong>" + withoutSpaces + "</strong>자";
+    }
+
+    button.addEventListener("click", updateCount);
+    // 입력 내용이 바뀔 때마다 (타이핑, 지우기, 붙여넣기) 바로 갱신
+    input.addEventListener("input", updateCount);
+
+    // 입력 칸을 비우고 글자 수를 0으로 표시
+    document.getElementById("clearBtn").addEventListener("click", function () {
+      input.value = "";
+      updateCount();
+      input.focus();
+    });
+  </script>
+</body>
+</html>
